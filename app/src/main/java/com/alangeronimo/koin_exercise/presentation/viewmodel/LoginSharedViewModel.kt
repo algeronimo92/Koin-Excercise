@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.alangeronimo.koin_exercise.domain.entity.Response
 import com.alangeronimo.koin_exercise.domain.usecase.LoginUseCase
 import com.alangeronimo.koin_exercise.network.dto.LoginResponse
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginSharedViewModel(private val loginUseCase: LoginUseCase) : ViewModel() {
 
@@ -33,14 +35,17 @@ class LoginSharedViewModel(private val loginUseCase: LoginUseCase) : ViewModel()
 
     private fun login(username: String, password: String) {
         viewModelScope.launch {
-            when (val response: Response<LoginResponse> = loginUseCase(username, password)) {
+            val result = withContext(Dispatchers.IO) {
+                loginUseCase(username, password)
+            }
+            when (result) {
                 is Response.Success -> {
                     _loginResult.postValue(true)
                 }
 
                 is Response.Failure -> {
                     _loginResult.postValue(false)
-                    Log.d("alan failure", response.error.toString())
+                    Log.d("alan failure", result.error.toString())
                 }
             }
         }
