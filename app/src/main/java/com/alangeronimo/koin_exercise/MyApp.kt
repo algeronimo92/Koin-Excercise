@@ -3,7 +3,10 @@
 package com.alangeronimo.koin_exercise
 
 import android.app.Application
-import com.alangeronimo.koin_exercise.di.appModule
+import com.alangeronimo.koin_exercise.di.dataModule
+import com.alangeronimo.koin_exercise.di.domainModule
+import com.alangeronimo.koin_exercise.di.networkModule
+import com.alangeronimo.koin_exercise.di.presentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.fragment.koin.fragmentFactory
@@ -18,6 +21,13 @@ class MyApp : Application(), KoinStartup {
         // Koin Fragment Factory
         fragmentFactory()
         androidContext(this@MyApp)
-        modules(appModule())
+        modules(
+            listOf(
+                networkModule,
+                dataModule,
+                domainModule,
+                presentationModule
+            )
+        )
     }
 }

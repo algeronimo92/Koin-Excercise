@@ -6,12 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.alangeronimo.koin_exercise.databinding.FragmentFirstBinding
-import com.alangeronimo.koin_exercise.R
-import com.alangeronimo.koin_exercise.presentation.viewmodels.MySharedViewModel
-import com.alangeronimo.koin_exercise.presentation.viewmodels.NavViewModel
-import org.koin.androidx.navigation.koinNavGraphViewModel
+import com.alangeronimo.koin_exercise.presentation.viewmodel.LoginSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 /**
@@ -19,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
  */
 class FirstFragment : Fragment() {
 
-    private val viewModel by activityViewModel<MySharedViewModel>()
+    private val viewModel by activityViewModel<LoginSharedViewModel>()
 
     private var _binding: FragmentFirstBinding? = null
 
@@ -39,6 +35,8 @@ class FirstFragment : Fragment() {
     ): View {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         return binding.root
 
     }
@@ -46,9 +44,10 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
+        //
+        //binding.buttonFirst.setOnClickListener {
+        //    findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        //}
     }
 
     override fun onDestroyView() {

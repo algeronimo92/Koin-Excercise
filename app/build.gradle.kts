@@ -37,6 +37,7 @@ android {
     buildFeatures {
         compose = true
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -75,7 +76,7 @@ dependencies {
     implementation(libs.koin.androidx.workmanager)
     implementation(libs.koin.androidx.navigation)
 
-
-
-
+    //retrofit
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.gson)
 }

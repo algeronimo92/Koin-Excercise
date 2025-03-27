@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.alangeronimo.koin_exercise.databinding.FragmentSecondBinding
 import com.alangeronimo.koin_exercise.R
-import com.alangeronimo.koin_exercise.presentation.viewmodels.MySharedViewModel
+import com.alangeronimo.koin_exercise.presentation.viewmodel.LoginSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 /**
@@ -17,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
  */
 class SecondFragment : Fragment() {
 
-    private val viewModel by activityViewModel<MySharedViewModel>()
+    private val viewModel by activityViewModel<LoginSharedViewModel>()
     private var _binding: FragmentSecondBinding? = null
 
     // This property is only valid between onCreateView and
