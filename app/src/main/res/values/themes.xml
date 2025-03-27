@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.KoinExercise" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.KoinExercise" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#03A9F4</item>
+        <item name="colorPrimaryDark">#3F51B5</item>
+        <item name="colorAccent">#E91E63</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.KoinExercise" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
 </resources>
