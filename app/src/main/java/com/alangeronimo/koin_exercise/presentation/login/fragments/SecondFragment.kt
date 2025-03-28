@@ -1,4 +1,4 @@
-package com.alangeronimo.koin_exercise.presentation
+package com.alangeronimo.koin_exercise.presentation.login.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.alangeronimo.koin_exercise.databinding.FragmentSecondBinding
 import com.alangeronimo.koin_exercise.R
-import com.alangeronimo.koin_exercise.presentation.viewmodel.LoginSharedViewModel
+import com.alangeronimo.koin_exercise.presentation.login.LoginSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 /**
@@ -23,11 +23,6 @@ class SecondFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("Alantest SecondFragment", viewModel.session())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

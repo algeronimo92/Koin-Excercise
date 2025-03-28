@@ -4,14 +4,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.alangeronimo.koin_exercise.presentation.viewmodel.LoginSharedViewModel" />
+            type="com.alangeronimo.koin_exercise.presentation.login.LoginSharedViewModel" />
     </data>
 
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.FirstFragment">
+    tools:context=".presentation.login.fragments.FirstFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

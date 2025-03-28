@@ -3,12 +3,18 @@ package com.alangeronimo.koin_exercise.di
 import com.alangeronimo.koin_exercise.data.repository.AuthRepositoryImpl
 import com.alangeronimo.koin_exercise.domain.repository.AuthRepository
 import com.alangeronimo.koin_exercise.domain.usecase.LoginUseCase
+import com.alangeronimo.koin_exercise.local.UserPreferences
 import com.alangeronimo.koin_exercise.network.AuthApi
-import com.alangeronimo.koin_exercise.presentation.viewmodel.LoginSharedViewModel
+import com.alangeronimo.koin_exercise.presentation.login.LoginSharedViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
+val localModule = module {
+    single { UserPreferences(androidContext()) }
+}
 
 val networkModule = module {
     single {
@@ -30,5 +36,5 @@ val domainModule = module {
 }
 
 val presentationModule = module {
-    viewModel { LoginSharedViewModel(get()) } // get() trae el LoginUseCase
+    viewModel { LoginSharedViewModel(get(), get()) } // get() trae el LoginUseCase
 }

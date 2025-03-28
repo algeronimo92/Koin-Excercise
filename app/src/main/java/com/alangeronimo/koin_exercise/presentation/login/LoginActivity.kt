@@ -1,20 +1,23 @@
-package com.alangeronimo.koin_exercise.presentation
+package com.alangeronimo.koin_exercise.presentation.login
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.alangeronimo.koin_exercise.R
 import com.alangeronimo.koin_exercise.databinding.ActivityMainBinding
-import com.alangeronimo.koin_exercise.presentation.viewmodel.LoginSharedViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.annotation.KoinInternalApi
 
-@OptIn(KoinInternalApi::class)
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private val viewModel by viewModel<LoginSharedViewModel>()
 
@@ -34,17 +37,30 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.viewModel = viewModel
 
-        viewModel.loginResult.observe(this) {
-            Log.d("Alantest MainActivity", "Login result: $it")
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    Log.d("Alantest LoginActivity", "uiState $state")
+                    when (state) {
+                        LoginUIState.Default -> {
+                            binding.progress.isVisible = false
+                            //no-op
+                        }
+                        is LoginUIState.Error -> {
+                            Toast.makeText(this@LoginActivity, state.message, Toast.LENGTH_SHORT).show()
+                            viewModel.clearUIState()
+                        }
+                        LoginUIState.Loading -> {
+                            binding.progress.isVisible = true
+                        }
+                        LoginUIState.Success -> {
+                            Toast.makeText(this@LoginActivity, "Login success", Toast.LENGTH_SHORT).show()
+                            viewModel.clearUIState()
+                        }
+                    }
+                }
+            }
         }
-    }
-
-
-
-    override fun onResume() {
-        super.onResume()
-
-        Log.d("Alantest MainActivity", viewModel.session())
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -5,6 +5,7 @@ package com.alangeronimo.koin_exercise
 import android.app.Application
 import com.alangeronimo.koin_exercise.di.dataModule
 import com.alangeronimo.koin_exercise.di.domainModule
+import com.alangeronimo.koin_exercise.di.localModule
 import com.alangeronimo.koin_exercise.di.networkModule
 import com.alangeronimo.koin_exercise.di.presentationModule
 import org.koin.android.ext.koin.androidContext
@@ -26,7 +27,8 @@ class MyApp : Application(), KoinStartup {
                 networkModule,
                 dataModule,
                 domainModule,
-                presentationModule
+                presentationModule,
+                localModule
             )
         )
     }

@@ -1,4 +1,4 @@
-package com.alangeronimo.koin_exercise.presentation
+package com.alangeronimo.koin_exercise.presentation.login.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.alangeronimo.koin_exercise.databinding.FragmentFirstBinding
-import com.alangeronimo.koin_exercise.presentation.viewmodel.LoginSharedViewModel
+import com.alangeronimo.koin_exercise.presentation.login.LoginSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 /**
@@ -22,12 +22,6 @@ class FirstFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    override fun onResume() {
-        super.onResume()
-
-        Log.d("Alantest FirstFragment", viewModel.session())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
