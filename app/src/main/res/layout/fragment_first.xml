@@ -25,15 +25,17 @@
             android:padding="16dp">
 
             <EditText
+                android:id="@+id/eTextUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Usuario"
+                android:hint="User"
                 android:text="@={viewModel.username}" />
 
             <EditText
+                android:id="@+id/eTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Contraseña"
+                android:hint="Password"
                 android:inputType="textPassword"
                 android:text="@={viewModel.password}" />
 

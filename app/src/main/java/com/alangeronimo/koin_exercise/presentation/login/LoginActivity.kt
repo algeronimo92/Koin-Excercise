@@ -46,15 +46,20 @@ class LoginActivity : AppCompatActivity() {
                             binding.progress.isVisible = false
                             //no-op
                         }
-                        is LoginUIState.Error -> {
-                            Toast.makeText(this@LoginActivity, state.message, Toast.LENGTH_SHORT).show()
-                            viewModel.clearUIState()
-                        }
                         LoginUIState.Loading -> {
                             binding.progress.isVisible = true
                         }
                         LoginUIState.Success -> {
                             Toast.makeText(this@LoginActivity, "Login success", Toast.LENGTH_SHORT).show()
+                            viewModel.clearUIState()
+                        }
+                        LoginUIState.Error.MissingCredentials,
+                        LoginUIState.Error.MissingUser,
+                        LoginUIState.Error.MissingPassword -> {
+                            viewModel.clearUIState()
+                        }
+                        is LoginUIState.Error.LoginFailed -> {
+                            Toast.makeText(this@LoginActivity, state.message, Toast.LENGTH_SHORT).show()
                             viewModel.clearUIState()
                         }
                     }

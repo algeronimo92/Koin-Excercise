@@ -3,16 +3,13 @@ package com.alangeronimo.koin_exercise.presentation.login
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.alangeronimo.koin_exercise.domain.entity.Response
 import com.alangeronimo.koin_exercise.domain.usecase.LoginUseCase
 import com.alangeronimo.koin_exercise.local.UserPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -41,8 +38,16 @@ class LoginSharedViewModel(
     }
 
     private fun login(username: String, password: String) {
-        if (username.isEmpty() || password.isEmpty()) {
-            _uiState.value = LoginUIState.Error("Missing credentials")
+        if (username.isEmpty() && password.isEmpty()) {
+            _uiState.value = LoginUIState.Error.MissingCredentials
+            return
+        }
+        if (username.isEmpty()) {
+            _uiState.value = LoginUIState.Error.MissingUser
+            return
+        }
+        if (password.isEmpty()) {
+            _uiState.value = LoginUIState.Error.MissingPassword
             return
         }
         _uiState.value = LoginUIState.Loading
@@ -58,7 +63,7 @@ class LoginSharedViewModel(
                 }
 
                 is Response.Failure -> {
-                    _uiState.value = LoginUIState.Error(result.error.message.toString())
+                    _uiState.value = LoginUIState.Error.LoginFailed
                     Log.d("alan LoginSharedViewModel", "login failure: " + result.error.toString())
                 }
             }
